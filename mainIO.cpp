@@ -2,13 +2,14 @@
 #include "asciiIO_t.h"
 #include "binIO_t.h"
 
+
+
+void RunTest()
+{
+	
+}
+
 int main()
 {	
-	asciiIO_t st("myfile.txt", "r");
-	char str[128];
-	st >> (char*)str, sizeof(str);
-
-	cout << str;
-
 	return 0;
 }

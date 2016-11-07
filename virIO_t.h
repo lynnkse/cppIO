@@ -21,13 +21,13 @@ class virIO_t
 		size_t Length() const;
 		void OpenFile(const string& _fileName, const string& _mode);
 		void SetStatus(FileStatus _status) { m_status = _status; }
-		FileStatus GetStatus() const { return m_status; }      
+		FileStatus GetStatus() const { return m_status; }   
+		size_t Read(void* _ptr, size_t _size) const;
+		size_t Write(const void* _ptr, size_t _size) const;   
 
-		//virtual virIO_t& operator>>(void* _buf)
-		//virtual virIO_t& operator<<(const void* _buf) = 0;
-		//virtual virIO_t& operator,(int len) = 0;
-		//virtual void Read(void* _ptr, size_t _size, size_t count) = 0;
-		//virtual void Write(void* _ptr, size_t _size, size_t count) = 0;
+		virIO_t& operator,(int len);
+		virIO_t& operator<<(const void* _buf);
+		virIO_t& operator>>(void* _buf);  
 
 		virtual virIO_t& operator>>(int& _i) = 0;
 		virtual virIO_t& operator<<(int _i) = 0;
@@ -59,18 +59,20 @@ class virIO_t
 		virtual virIO_t& operator>>(double& _i) = 0;
 		virtual virIO_t& operator<<(double _i) = 0;
 
+		/*TODO seek and tell*/
+
 	protected:
 		FILE* GetFp() const { return m_fp; } 
 		void SetIsIn(bool _isIN) { m_isIN = _isIN; }
 		bool IsIn() const { return m_isIN; }
 		void SetTempPtr(const void* _ptr) { m_temp = (void*)_ptr; }
 		void* GetTempPtr() const { return m_temp; }
+		FILE* m_fp;//FIXME ???
 
 	private:
 		string m_name;
 		string m_mode;
 		FileStatus m_status;
-		FILE* m_fp;
 		bool m_isIN;
 		void* m_temp;
 

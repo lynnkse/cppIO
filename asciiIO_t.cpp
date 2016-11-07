@@ -3,314 +3,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void asciiIO_t::Read(char* _ptr, size_t _size) const
-{
-	if(GetFp())
-	{
-		fgets(_ptr,_size, GetFp());
-	}
-}
+asciiIO_t& asciiIO_t::operator<<(int _i)  { return Wr("%d", _i); }
+asciiIO_t& asciiIO_t::operator>>(int& _i) { return Rr("%d", _i); }
 
-void asciiIO_t::Write(const char* _ptr) const
-{
-	if(GetFp())
-	{		
-		fputs(_ptr, GetFp());
-	}
-}
+asciiIO_t& asciiIO_t::operator<<(char _i)  { return Wr("%c", _i); }
+asciiIO_t& asciiIO_t::operator>>(char& _i) { return Rr("%c", _i); }
 
-virIO_t& asciiIO_t::operator<<(int _i)  
-{
-	if(GetFp())
-	{	
-		fprintf(GetFp(), "%d", _i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
+asciiIO_t& asciiIO_t::operator<<(short _i)  { return Wr("%hu", _i); }
+asciiIO_t& asciiIO_t::operator>>(short& _i) { return Rr("%hu", _i); }
 
-virIO_t& asciiIO_t::operator>>(int& _i)  
-{
-	if(GetFp())
-	{		
-		char buff[10];
-		fscanf(GetFp(), "%d", &_i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
+asciiIO_t& asciiIO_t::operator<<(long _i)  { return Wr("%ld", _i); }
+asciiIO_t& asciiIO_t::operator>>(long& _i) { return Rr("%ld", _i); }
 
-virIO_t& asciiIO_t::operator<<(char _i)  
-{
-	if(GetFp())
-	{	
-		fprintf(GetFp(), "%d", _i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
+asciiIO_t& asciiIO_t::operator<<(float _i)  { return Wr("%f", _i); }
+asciiIO_t& asciiIO_t::operator>>(float& _i) { return Rr("%f", _i); }
 
-virIO_t& asciiIO_t::operator>>(char& _i) 
-{
-	if(GetFp())
-	{		
-		char buff[10];
-		fscanf(GetFp(), "%c", &_i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
+asciiIO_t& asciiIO_t::operator<<(unsigned int _i)  { return Wr("%d", _i); }
+asciiIO_t& asciiIO_t::operator>>(unsigned int& _i) { return Rr("%d", _i); }
 
-virIO_t& asciiIO_t::operator<<(short _i)  
-{
-	if(GetFp())
-	{	
-		fprintf(GetFp(), "%d", _i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
+asciiIO_t& asciiIO_t::operator<<(unsigned char _i)  { return Wr("%d", _i); }
+asciiIO_t& asciiIO_t::operator>>(unsigned char& _i) { return Rr("%d", _i); }
 
-virIO_t& asciiIO_t::operator>>(short& _i)  
-{
-	if(GetFp())
-	{		
-		char buff[10];
-		fscanf(GetFp(), "%hu", &_i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
+asciiIO_t& asciiIO_t::operator<<(unsigned short _i)  { return Wr("%d", _i); }
+asciiIO_t& asciiIO_t::operator>>(unsigned short& _i) { return Rr("%d", _i); }
 
-virIO_t& asciiIO_t::operator<<(long _i)  
-{
-	if(GetFp())
-	{	
-		fprintf(GetFp(), "%ld", _i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
+asciiIO_t& asciiIO_t::operator<<(unsigned long _i)  { return Wr("%ld", _i); }
+asciiIO_t& asciiIO_t::operator>>(unsigned long& _i) { return Rr("%ld", _i); }
 
-virIO_t& asciiIO_t::operator>>(long& _i)  
-{
-	if(GetFp())
-	{		
-		char buff[10];
-		fscanf(GetFp(), "%ld", &_i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
+asciiIO_t& asciiIO_t::operator<<(double _i)  { return Wr("%f", _i); }
+asciiIO_t& asciiIO_t::operator>>(double& _i) { return Rr("%f", _i); }
 
-virIO_t& asciiIO_t::operator<<(float _i)  
-{
-	if(GetFp())
-	{	
-		fprintf(GetFp(), "%f", _i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
 
-virIO_t& asciiIO_t::operator>>(float& _i)  
-{
-	if(GetFp())
-	{		
-		char buff[10];
-		fscanf(GetFp(), "%f", &_i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
-
-virIO_t& asciiIO_t::operator<<(unsigned int _i)  
-{
-	if(GetFp())
-	{	
-		fprintf(GetFp(), "%d", _i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
-
-virIO_t& asciiIO_t::operator>>(unsigned int& _i) 
-{
-	if(GetFp())
-	{		
-		char buff[10];
-		fscanf(GetFp(), "%d", &_i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
-
-virIO_t& asciiIO_t::operator<<(unsigned char _i) 
-{
-	if(GetFp())
-	{	
-		fprintf(GetFp(), "%d", _i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
-
-virIO_t& asciiIO_t::operator>>(unsigned char& _i) 
-{
-	if(GetFp())
-	{		
-		char buff[10];
-		fscanf(GetFp(), "%c", &_i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
-
-virIO_t& asciiIO_t::operator<<(unsigned short _i) 
-{
-	if(GetFp())
-	{	
-		fprintf(GetFp(), "%d", _i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
-
-virIO_t& asciiIO_t::operator>>(unsigned short& _i) 
-{
-	if(GetFp())
-	{		
-		char buff[10];
-		fscanf(GetFp(), "%hu", &_i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
-
-virIO_t& asciiIO_t::operator<<(unsigned long _i) 
-{
-	if(GetFp())
-	{	
-		fprintf(GetFp(), "%ld", _i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
-
-virIO_t& asciiIO_t::operator>>(unsigned long& _i) 
-{
-	if(GetFp())
-	{		
-		char buff[10];
-		fscanf(GetFp(), "%ld", &_i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
-
-virIO_t& asciiIO_t::operator<<(double _i) 
-{
-	if(GetFp())
-	{	
-		fprintf(GetFp(), "%f", _i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
-
-virIO_t& asciiIO_t::operator>>(double& _i) 
-{
-	if(GetFp())
-	{		
-		char buff[10];
-		fscanf(GetFp(), "%lf", &_i);
-		return *this;
-	}
-	else
-	{
-		throw ("File not open");
-	}
-}
-
-virIO_t& asciiIO_t::operator<<(const char* _buf)
-{
-	Write(_buf);
-	return *this;
-}
-
-virIO_t& asciiIO_t::operator>>(char* _buf)
-{
-	Read(_buf, 64/*FIXME add comma usage here*/);
-	return *this;
-}
-
-/*
-virIO_t& asciiIO_t::operator,(int len)
-{
-	return *this;
-}
-
-virIO_t& asciiIO_t::operator<<(const void* _buf)
-{
-	Write((const char*) _buf);
-	return *this;
-}*/
 
 

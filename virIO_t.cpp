@@ -31,3 +31,106 @@ string virIO_t::GetPath() const
 	res = res.substr(0, m_name.find_last_of("\\"));
 	return res;
 }
+
+size_t virIO_t::Read(void* _ptr, size_t _size) const
+{
+	if(GetFp())
+	{
+		return fread(_ptr, _size, 1, GetFp());
+	}
+	else
+	{
+		throw("file not open");
+	}
+}
+
+size_t virIO_t::Write(const void* _ptr, size_t _size) const
+{
+	if(GetFp())
+	{		
+		return fwrite(_ptr,_size, 1, GetFp());
+	}
+	else
+	{
+		throw("file not open");
+	}
+}
+
+virIO_t& virIO_t::operator,(int len)  
+{
+	if(IsIn())
+	{
+		Read(GetTempPtr(), (int)len);
+	}
+	else
+	{
+		Write(GetTempPtr(), (int)len);
+	}
+	return *this;
+}
+
+virIO_t& virIO_t::operator<<(const void* _buf)
+{
+	if(GetFp())
+	{	
+		SetIsIn(false);
+		SetTempPtr((void*)_buf);
+		return *this;
+	}
+	else
+	{
+		throw ("File not open");
+	}
+}
+
+virIO_t& virIO_t::operator>>(void* _buf)
+{
+	if(GetFp())
+	{		
+		SetIsIn(true);		
+		SetTempPtr(_buf);
+		return *this;
+	}
+	else
+	{
+		throw ("File not open");
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

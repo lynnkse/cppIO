@@ -97,6 +97,16 @@ virIO_t& virIO_t::operator>>(void* _buf)
 	}
 }
 
+int virIO_t::Fseek(long int _offset, int _origin)
+{
+	return fseek(GetFp(), _offset, _origin);
+}
+
+long int virIO_t::Ftell() const
+{
+	return ftell(GetFp());
+}
+
 
 
 

@@ -1,7 +1,7 @@
 #include "virIO_t.h"
 #include "asciiIO_t.h"
 #include "binIO_t.h"
-#include "cstring"
+#include <cstring>
 
 #define WRITE_INT 1
 #define READ_INT 2
@@ -9,9 +9,13 @@
 #define READ_STRING 4
 #define WRITE_STRING_BIN 5
 #define READ_STRING_BIN 6
+#define APPEND_TEXT_TO_FILE 7
+#define GET_FILE_LENGTH 8
 #define EXIT 0
 
 #define FILE_NAME "myfile"
+
+using namespace std;
 
 void RunTest();
 
@@ -21,6 +25,9 @@ void WriteString();
 void ReadString();
 void WriteStringBin();
 void ReadStringBin();
+void AppendTextToFile();
+void GetFileLength();
+void AddCharToFile();
 
 string GetFileName()
 {
@@ -53,6 +60,8 @@ void RunTest()
 			 << "4. Read string" << endl 
 			 << "5. Write string binary(overwrite file if exists)" << endl 
 			 << "6. Read string binary" << endl
+			 << "7. Append text to file" << endl
+			 << "8. Get file length" << endl
 			 << "0. Exit" << endl;
 		cin >> i;
 		try
@@ -77,6 +86,12 @@ void RunTest()
 				case READ_STRING_BIN:
 					ReadStringBin();
 					break;
+				case APPEND_TEXT_TO_FILE:
+					AppendTextToFile();
+					break;
+				case GET_FILE_LENGTH:
+					GetFileLength();
+					break;
 			}
 		}
 		catch(const char* _e)
@@ -90,7 +105,7 @@ void WriteIntToNewFile()
 {
 	asciiIO_t binF(GetFileName().c_str(), "w");	
 	int numBuf;
-	cout << "Enter number:" << endl;
+	cout << "Enter number: " << endl;
 	cin >> numBuf;
 	binF << numBuf, 10;
 }
@@ -107,9 +122,9 @@ void WriteString()
 {
 	asciiIO_t asciiF(GetFileName().c_str(), "w");	
 	char strBuf[128];
-	cout << "Enter string:" << endl;
+	cout << "Enter string: " << endl;
 	cin >> strBuf;
-	asciiF << (void*)strBuf, sizeof(strBuf);
+	asciiF << (void*)strBuf, (strlen(strBuf)+1);
 }
 
 void ReadString()
@@ -117,16 +132,16 @@ void ReadString()
 	asciiIO_t asciiF(GetFileName().c_str(), "r");	
 	char strBuf[128];
 	asciiF >> (void*)strBuf, sizeof(strBuf);
-	cout << "String:" << strBuf << endl;;
+	cout << "String: " << strBuf << endl;;
 }
 
 void WriteStringBin()
 {
 	binIO_t binF(GetFileName().c_str(), "wb");
 	char strBuf[128];
-	cout << "Enter string:" << endl;
+	cout << "Enter string: " << endl;
 	cin >> strBuf;
-	binF << strBuf, sizeof(strBuf);
+	binF << strBuf, (strlen(strBuf)+1);
 }
 
 void ReadStringBin()
@@ -134,12 +149,30 @@ void ReadStringBin()
 	binIO_t binF(GetFileName().c_str(), "rb");
 	char strBuf[128];
 	binF >> strBuf, sizeof(strBuf);
-	cout << "String:" << strBuf << endl;
+	cout << "String: " << strBuf << endl;
 }
 
+void AppendTextToFile()
+{
+	asciiIO_t binF(GetFileName().c_str(), "a");
+	char strBuf[128];
+	cout << "Enter string: " << endl;
+	cin >> strBuf;
+	binF << (void*)strBuf, (strlen(strBuf)+1);
+}
 
+void GetFileLength()
+{
+	asciiIO_t asciiF(GetFileName().c_str(), "r");
+	cout << "File length: " << asciiF.Length() << endl;
+}
 
-
+void AddCharToFile()
+{
+	asciiIO_t asciiF(GetFileName().c_str(), "a");
+	char buf;
+	cout//TODO here
+}
 
 
 

@@ -59,7 +59,8 @@ class virIO_t
 		virtual virIO_t& operator>>(double& _i) = 0;
 		virtual virIO_t& operator<<(double _i) = 0;
 
-		/*TODO seek and tell*/
+		int Fseek(long int _offset, int _origin);
+		long int Ftell() const;
 
 	protected:
 		FILE* GetFp() const { return m_fp; } 

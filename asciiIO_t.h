@@ -35,6 +35,8 @@ class asciiIO_t : public virIO_t
 		virIO_t& operator<<(unsigned long _i);
 		virIO_t& operator>>(double& _i);
 		virIO_t& operator<<(double _i);
+		virIO_t& operator<<(const char* _buf);
+		virIO_t& operator>>(char* _buf);
 		//virIO_t& operator,(int len);
 };
 

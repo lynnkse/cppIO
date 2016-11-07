@@ -289,6 +289,18 @@ virIO_t& asciiIO_t::operator>>(double& _i)
 	}
 }
 
+virIO_t& asciiIO_t::operator<<(const char* _buf)
+{
+	Write(_buf);
+	return *this;
+}
+
+virIO_t& asciiIO_t::operator>>(char* _buf)
+{
+	Read(_buf, 64/*FIXME add comma usage here*/);
+	return *this;
+}
+
 /*
 virIO_t& asciiIO_t::operator,(int len)
 {

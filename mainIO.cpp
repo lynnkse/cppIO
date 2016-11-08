@@ -11,6 +11,9 @@
 #define READ_STRING_BIN 6
 #define APPEND_TEXT_TO_FILE 7
 #define GET_FILE_LENGTH 8
+#define ADD_CHAR_TO_FILE 9
+#define WRITE_BIN_INT_TO_FILE 10
+#define READ_BIN_INT_FROM_FILE 11
 #define EXIT 0
 
 #define FILE_NAME "myfile"
@@ -28,6 +31,9 @@ void ReadStringBin();
 void AppendTextToFile();
 void GetFileLength();
 void AddCharToFile();
+void WriteAsciiIntToNewFile();
+void WriteBinaryIntToNewFile();
+void ReadBinaryIntFromFile();
 
 string GetFileName()
 {
@@ -45,23 +51,22 @@ int main()
 }
 
 void RunTest()
-{
-	//binIO_t binF("binfile.txt", "wb+");
-	//asciiIO_t asciiF("asciifile.txt", "r+");		
-	int numBuf;
-	char strBuf[128];
+{	
 	int i = 1;	
 	while(i)
 	{
 		cout << "Choose option:" << endl 
-			 << "1. Write int to a new ASCII file(overwrite file if exists)" << endl 
+			 << "1. Write int to a new ASCII file" << endl 
 			 << "2. Read int from ASCII file" << endl 
-			 << "3. Write string(overwrite file if exists)" << endl 
+			 << "3. Write string" << endl 
 			 << "4. Read string" << endl 
 			 << "5. Write string binary(overwrite file if exists)" << endl 
 			 << "6. Read string binary" << endl
 			 << "7. Append text to file" << endl
 			 << "8. Get file length" << endl
+			 << "9. Add char to file" << endl
+			 << "10. Write binary int to file" << endl
+			 << "11. Read binary int from file" << endl
 			 << "0. Exit" << endl;
 		cin >> i;
 		try
@@ -91,6 +96,15 @@ void RunTest()
 					break;
 				case GET_FILE_LENGTH:
 					GetFileLength();
+					break;
+				case ADD_CHAR_TO_FILE:
+					AddCharToFile();
+					break;
+				case WRITE_BIN_INT_TO_FILE:
+					WriteBinaryIntToNewFile();
+					break;
+				case READ_BIN_INT_FROM_FILE:
+					ReadBinaryIntFromFile();
 					break;
 			}
 		}
@@ -171,14 +185,27 @@ void AddCharToFile()
 {
 	asciiIO_t asciiF(GetFileName().c_str(), "a");
 	char buf;
-	cout//TODO here
+	cout << "Enter char:" << endl;
+	cin >> buf;
+	asciiF << buf;
 }
 
+void WriteBinaryIntToNewFile()
+{
+	binIO_t binF(GetFileName().c_str(), "wb");
+	int buf;
+	cout << "Enter integer:" << endl;
+	cin >> buf;
+	binF << buf;
+}
 
-
-
-
-
+void ReadBinaryIntFromFile()
+{
+	binIO_t binF(GetFileName().c_str(), "rb");
+	int buf;
+	binF >> buf;
+	cout << "Integer: " << buf << endl;
+}
 
 
 

@@ -68,7 +68,7 @@ class virIO_t
 		bool IsIn() const { return m_isIN; }
 		void SetTempPtr(const void* _ptr) { m_temp = (void*)_ptr; }
 		void* GetTempPtr() const { return m_temp; }
-		FILE* m_fp;//FIXME ???
+		FILE* m_fp;
 
 	private:
 		string m_name;
